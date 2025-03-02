@@ -23,7 +23,19 @@
 			<div class="login_student" style="margin-top: -3px;">
 					<div class="student_info clearfix">
 						<div class="portrait"><img src="images/temp/fox.jpg" alt=""></div>
-						<span class="ui-nowrap" title="小慧同学">你好!</span>
+						<span class="ui-nowrap" title="用户"><span class="username" id="usernameDisplay"></span>
+						<script>
+        						// 从URL中提取用户名
+						        const urlParams = new URLSearchParams(window.location.search);
+						        const username = urlParams.get('username');
+						
+						        // 显示用户名
+						        if (username) {
+						            document.getElementById('usernameDisplay').innerText = decodeURIComponent(username);
+						        } else {
+						            document.getElementById('usernameDisplay').innerText = '你好!';
+						        }
+						</script>
 						<i></i>
 					</div>
 					<div class="student_updown">
