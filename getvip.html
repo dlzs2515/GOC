@@ -92,8 +92,7 @@
 
             // 生成验证码
             generatedCode = generateVerificationCode();
-            document.getElementById('resultMessage').textContent = '验证码为:${generatedCode}';
-            document.getElementById('resultMessage').style.color = 'blue';
+            alert('验证码为:${generatedCode}');
             
             // 显示验证码输入框
             document.getElementById('emailSection').classList.add('hidden');
