@@ -22,11 +22,16 @@
 		<div class="ht_login_register">
 			<div class="login_student" style="margin-top: -3px;">
 					<div class="student_info clearfix">
-						<div class="portrait"><img src="images/temp/fox.jpg" alt=""></div>
+						            <div class="portrait" style="display: none;">
+                						<img src="images/temp/fox.jpg" alt="默认头像">
+            						    </div>
+            						    <img id="avatarDisplay" class="avatar" src="#" alt="用户头像" style="display: none;">
+								<!--<div class="portrait"><img src="images/temp/fox.jpg" alt=""></div>-->
 						<span class="ui-nowrap" title="用户"><span class="username" id="usernameDisplay"></span></span>
-						 <script>
-						        // 从 localStorage 中读取用户名
+						    <script>
+						        // 从 localStorage 中读取用户名和头像
 						        const username = localStorage.getItem('username');
+						        const avatar = localStorage.getItem('avatar');
 						
 						        // 显示用户名
 						        if (username) {
@@ -34,7 +39,21 @@
 						        } else {
 						            document.getElementById('usernameDisplay').innerText = '用户';
 						        }
-						 </script>
+						
+						        // 显示头像
+						        const avatarContainer = document.getElementById('avatarContainer');
+						        const defaultPortrait = document.querySelector('.portrait');
+						        const avatarDisplay = document.getElementById('avatarDisplay');
+						
+						        if (avatar) {
+						            // 如果用户上传了头像，显示用户头像
+						            avatarDisplay.src = avatar;
+						            avatarDisplay.style.display = 'block';
+						        } else {
+						            // 如果没有上传头像，显示默认头像
+						            defaultPortrait.style.display = 'block';
+						        }
+						    </script>
 						<i></i>
 					</div>
 					<div class="student_updown">
