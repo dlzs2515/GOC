@@ -65,8 +65,7 @@
 
         <!-- 输入邮箱 -->
         <div id="emailSection">
-            <input type="email" id="emailInput" placeholder="请输入你的邮箱">
-            <button onclick="sendVerificationCode()">发送验证码</button>
+            <button onclick="sendVerificationCode()">开始验证</button>
         </div>
 
         <!-- 输入验证码 -->
@@ -92,24 +91,15 @@
         function sendVerificationCode() {
             const email = document.getElementById('emailInput').value;
 
-            // 验证邮箱格式
-            if (!email.includes('@') || !email.includes('.')) {
-                alert('请输入有效的邮箱地址！');
-                return;
-            }
-
             // 生成验证码
             generatedCode = generateVerificationCode();
-
-            // 打开默认邮件客户端
-            const mailtoLink = `mailto:${email}?subject=验证码&body=您的验证码是：${generatedCode}`;
-            window.location.href = mailtoLink;
-
+            document.getElementById('resultMessage').textContent = '验证码为:${generatedCode}';
+            document.getElementById('resultMessage').style.color = 'blue';
+            
             // 显示验证码输入框
             document.getElementById('emailSection').classList.add('hidden');
             document.getElementById('verificationSection').classList.remove('hidden');
         }
-
         // 验证验证码
         function verifyCode() {
             const userCode = document.getElementById('verificationCodeInput').value;
