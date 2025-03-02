@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>51GOC - 邮箱验证</title>
+    <title>51GOC - 验证</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -92,7 +92,7 @@
 
             // 生成验证码
             generatedCode = generateVerificationCode();
-            alert('验证码为:${generatedCode}');
+            alert(`验证码为:${generatedCode}`);
             
             // 显示验证码输入框
             document.getElementById('emailSection').classList.add('hidden');
