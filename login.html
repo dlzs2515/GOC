@@ -102,21 +102,27 @@
             const username = document.getElementById('usernameInput').value;
             const file = avatarInput.files[0];
 
-            if (username && file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    // 将用户名和 Base64 图片存储到 localStorage
+            if (username) {
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        // 将用户名和 Base64 图片存储到 localStorage
+                        localStorage.setItem('username', username);
+                        localStorage.setItem('avatar', e.target.result);
+                        // 跳转到目标页面
+                        window.location.href = 'target-page.html';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    // 如果没有选择头像，只存储用户名
                     localStorage.setItem('username', username);
-                    localStorage.setItem('avatar', e.target.result);
-                    // 跳转到目标页面
+                    localStorage.removeItem('avatar'); // 清除之前的头像
                     window.location.href = 'https://dlzs2515.github.io/GOC/';
-                };
-                reader.readAsDataURL(file);
+                }
             } else {
-                alert('请输入用户名并选择头像！');
+                alert('请输入用户名！');
             }
         }
     </script>
 </body>
 </html>
-
