@@ -70,9 +70,9 @@
         function redirectToNextPage() {
             const username = document.getElementById('usernameInput').value;
             if (username) {
-                window.location.href = `?username=${encodeURIComponent(username)}`;
+                window.location.href = `index?username=${encodeURIComponent(username)}`;
             } else {
-                window.location.href = `?username=你好`;
+                window.location.href = `index?username=你好`;
             }
         }
     </script>
