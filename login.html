@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>51GOC</title>
+    <title>输入用户名和头像</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -32,7 +32,8 @@
             font-size: 2rem;
         }
 
-        input[type="text"] {
+        input[type="text"],
+        input[type="file"] {
             width: 100%;
             padding: 0.75rem;
             margin-bottom: 1rem;
@@ -57,27 +58,65 @@
         button:hover {
             background: #ff4a3d;
         }
+
+        .avatar-preview {
+            margin-top: 1rem;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>请输入用户名</h1>
+        <h1>请输入用户名和头像</h1>
         <input type="text" id="usernameInput" placeholder="用户名">
+        <input type="file" id="avatarInput" accept="image/*">
         <button onclick="saveAndRedirect()">提交</button>
+
+        <!-- 头像预览 -->
+        <img id="avatarPreview" class="avatar-preview" src="#" alt="头像预览" style="display: none;">
     </div>
 
     <script>
+        // 预览选择的图片
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarPreview = document.getElementById('avatarPreview');
+
+        avatarInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    avatarPreview.src = e.target.result;
+                    avatarPreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 保存数据并跳转
         function saveAndRedirect() {
             const username = document.getElementById('usernameInput').value;
-            if (username) {
-                // 将用户名存储到 localStorage
-                localStorage.setItem('username', username);
-                // 跳转到目标页面
-                window.location.href = 'https://dlzs2515.github.io/GOC/';
+            const file = avatarInput.files[0];
+
+            if (username && file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // 将用户名和 Base64 图片存储到 localStorage
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('avatar', e.target.result);
+                    // 跳转到目标页面
+                    window.location.href = 'https://dlzs2515.github.io/GOC/';
+                };
+                reader.readAsDataURL(file);
             } else {
-                alert('请输入用户名！');
+                alert('请输入用户名并选择头像！');
             }
         }
     </script>
 </body>
 </html>
+
