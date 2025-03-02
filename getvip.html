@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>51GOC - 邮箱验证</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        input[type="email"],
+        input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+
+        button {
+            background: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #ff4a3d;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>邮箱验证</h1>
+
+        <!-- 输入邮箱 -->
+        <div id="emailSection">
+            <input type="email" id="emailInput" placeholder="请输入你的邮箱">
+            <button onclick="sendVerificationCode()">发送验证码</button>
+        </div>
+
+        <!-- 输入验证码 -->
+        <div id="verificationSection" class="hidden">
+            <input type="text" id="verificationCodeInput" placeholder="请输入验证码">
+            <button onclick="verifyCode()">提交验证</button>
+        </div>
+
+        <!-- 结果显示 -->
+        <p id="resultMessage"></p>
+    </div>
+
+    <script>
+        let generatedCode = ''; // 存储生成的验证码
+
+        // 生成随机验证码
+        function generateVerificationCode() {
+            const code = Math.floor(100000 + Math.random() * 900000); // 6位随机数
+            return code.toString();
+        }
+
+        // 发送验证码
+        function sendVerificationCode() {
+            const email = document.getElementById('emailInput').value;
+
+            // 验证邮箱格式
+            if (!email.includes('@') || !email.includes('.')) {
+                alert('请输入有效的邮箱地址！');
+                return;
+            }
+
+            // 生成验证码
+            generatedCode = generateVerificationCode();
+
+            // 打开默认邮件客户端
+            const mailtoLink = `mailto:${email}?subject=验证码&body=您的验证码是：${generatedCode}`;
+            window.location.href = mailtoLink;
+
+            // 显示验证码输入框
+            document.getElementById('emailSection').classList.add('hidden');
+            document.getElementById('verificationSection').classList.remove('hidden');
+        }
+
+        // 验证验证码
+        function verifyCode() {
+            const userCode = document.getElementById('verificationCodeInput').value;
+
+            if (userCode === generatedCode) {
+                document.getElementById('resultMessage').textContent = '验证成功！';
+                document.getElementById('resultMessage').style.color = 'green';
+                localStorage.setItem('userThey', 'vip');
+                window.location.href = 'https://dlzs2515.github.io/GOC/';
+            } else {
+                document.getElementById('resultMessage').textContent = '验证码错误，请重试！';
+                document.getElementById('resultMessage').style.color = 'red';
+            }
+        }
+    </script>
+</body>
+</html>
